@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+</head>
+<body>
+<h1>Product List</h1>
+
+<form th:action="@{/filtered-products}" method="get">
+    <label for="selectedCategories">Select categories:</label>
+    <select id="selectedCategories" name="selectedCategories" multiple>
+        <option th:each="category : ${categories}" th:value="${category}"
+                th:text="${category.getDisplayName()}"></option>
+    </select>
+
+    <button type="submit">Apply Filter</button>
+</form>
+
+<ul>
+    <li th:each="product : ${products}">
+        <span th:text="${product.name}"></span> - <span th:text="${product.price}"></span>
+    </li>
+</ul>
+
+<a th:href="@{/add-product}">Add Product</a>
+</body>
+</html>

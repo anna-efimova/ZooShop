@@ -1,0 +1,33 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="v1-2" author="Anna Elf">
+        <createTable tableName="category">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="id_product" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tag" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <loadData tableName="category" file="classpath:db/data/categories.csv">
+            <column name="id" type="SERIAL"/>
+            <column name="id_product" type="INTEGER"/>
+            <column name="tag" type="VARCHAR(255)"/>
+        </loadData>
+        <addForeignKeyConstraint
+                baseTableName="category"
+                baseColumnNames="id_product"
+                referencedTableName="product"
+                referencedColumnNames="id"
+                constraintName="fk_category_product_id"
+        />
+
+    </changeSet>
+</databaseChangeLog>
